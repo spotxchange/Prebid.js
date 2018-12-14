@@ -17,7 +17,7 @@ let hook = create();
 export const hooks = hook.hooks;
 
 /**
- * An adapter for fun-hooks API
+ * An adapter from old API to new fun-hooks API
  * @param {string} type The method for applying all attached hooks when this hooked function is called
  * @param {function()} fn The function to make hookable
  * @param {string} hookName If provided this allows you to register a name for a global hook to have easy access to

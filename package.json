@@ -107,7 +107,7 @@
     "core-js": "^2.4.1",
     "crypto-js": "^3.1.9-1",
     "eslint-scope": "^4.0.0",
-    "fun-hooks": "file:../fun-hooks",
+    "fun-hooks": "^0.0.3",
     "grunt-coveralls": "^2.0.0",
     "gulp-sourcemaps": "^2.6.0",
     "has-ansi": "^3.0.0",
