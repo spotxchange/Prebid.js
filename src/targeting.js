@@ -48,6 +48,11 @@ export function getHighestCpmBidsFromBidPool(bidsReceived, highestCpmCallback) {
 
 export function newTargeting(auctionManager) {
   let targeting = {};
+  let latestAuctionForAdUnit = {};
+
+  targeting.setLatestAuctionForAdUnit = function(adUnitCode, auctionId) {
+    latestAuctionForAdUnit[adUnitCode] = auctionId;
+  };
 
   targeting.resetPresetTargeting = function(adUnitCode) {
     if (isGptPubadsDefined()) {
@@ -186,7 +191,13 @@ export function newTargeting(auctionManager) {
   }
 
   function getBidsReceived() {
-    const bidsReceived = auctionManager.getBidsReceived()
+    let bidsReceived = auctionManager.getBidsReceived();
+
+    if (!config.getConfig('useBidCache')) {
+      bidsReceived = bidsReceived.filter(bid => latestAuctionForAdUnit[bid.adUnitCode] === bid.auctionId)
+    }
+
+    bidsReceived = bidsReceived
       .filter(bid => bid.mediaType !== 'banner' || sizeSupported([bid.width, bid.height]))
       .filter(isUnusedBid)
       .filter(exports.isBidNotExpired)
