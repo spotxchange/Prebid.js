@@ -55,7 +55,7 @@ import { getCacheUrl, store } from './videoCache';
 import { Renderer } from 'src/Renderer';
 import { config } from 'src/config';
 import { userSync } from 'src/userSync';
-import { createHook } from 'src/hook';
+import { hook } from 'src/hook';
 import find from 'core-js/library/fn/array/find';
 import includes from 'core-js/library/fn/array/includes';
 import { OUTSTREAM } from './video';
@@ -318,7 +318,7 @@ export function newAuction({adUnits, adUnitCodes, callback, cbTimeout, labels}) 
   }
 }
 
-export const addBidResponse = createHook('asyncSeries', function(adUnitCode, bid) {
+export const addBidResponse = hooks('async', function(adUnitCode, bid) {
   this.dispatch.call(this.bidderRequest, adUnitCode, bid);
 }, 'addBidResponse');
 

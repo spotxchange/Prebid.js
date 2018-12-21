@@ -2,7 +2,7 @@
 import create from 'fun-hooks';
 import { logError } from 'src/utils';
 
-let hook = create();
+export let hook = create();
 /**
  * @typedef {function} HookedFunction
  * @property {function(function(), [number])} addHook A method that takes a new function to attach as a hook
