@@ -114,15 +114,13 @@ function errorSettingsRates(msg) {
   }
 }
 
-let removeHook;
-
 function initCurrency(url) {
   conversionCache = {};
   currencySupportEnabled = true;
 
   utils.logInfo('Installing addBidResponse decorator for currency module', arguments);
 
-  removeHook = hooks['addBidResponse'].before(addBidResponseHook, 100);
+  hooks['addBidResponse'].before(addBidResponseHook, 100);
 
   if (!currencyRates.conversions) {
     ajax(url,
@@ -146,9 +144,7 @@ function initCurrency(url) {
 function resetCurrency() {
   utils.logInfo('Uninstalling addBidResponse decorator for currency module', arguments);
 
-  if (removeHook) {
-    removeHook();
-  }
+  hooks['addBidResponse'].getHooks({hook: addBidResponseHook}).remove()
 
   adServerCurrency = 'USD';
   conversionCache = {};
